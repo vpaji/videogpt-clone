@@ -3,7 +3,7 @@ import requests, os, uuid, subprocess
 
 app = FastAPI()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = os.getenv("AIzaSyBafGD7obI2F7rV8XsNKG2dHUuoUho6K2Y")
 
 @app.post("/generate")
 async def generate_video(topic: str = Form(...), style: str = Form(...)):
@@ -13,7 +13,7 @@ async def generate_video(topic: str = Form(...), style: str = Form(...)):
     payload = {
         "contents": [{"parts": [{"text": f"Write a short video script about {topic} in {style} style"}]}]
     }
-    r = requests.post(f"{gemini_url}?key={GEMINI_API_KEY}", headers=headers, json=payload)
+    r = requests.post(f"{gemini_url}?key={AIzaSyBafGD7obI2F7rV8XsNKG2dHUuoUho6K2Y}", headers=headers, json=payload)
     script_text = r.json().get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
 
     # Step 2: Generate image using Pollinations.ai
