@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VideoGPT Clone</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, select, button { margin: 5px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>VideoGPT Clone</h1>
+    <form id="videoForm">
+        <input type="text" name="topic" placeholder="Enter topic" required>
+        <select name="style">
+            <option>anime</option>
+            <option>realistic</option>
+            <option>cartoon</option>
+        </select>
+        <button type="submit">Generate Video</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('videoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            let formData = new FormData(e.target);
+            let res = await fetch('/generate', { method: 'POST', body: formData });
+            let data = await res.json();
+            document.getElementById('result').innerHTML = `<p>${data.script}</p><video controls src="${data.video_url}"></video>`;
+        });
+    </script>
+</body>
+</html>
